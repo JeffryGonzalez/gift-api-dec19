@@ -16,10 +16,15 @@ export class HolidaysController {
     }
 
     @Post()
-    addHoliday(@Body() holiday: HolidayCreate) {
-        if (holiday.name.toLowerCase() === 'sweetest day') {
-            throw new BadRequestException('Made up Holiday!');
-        }
-        return this.service.add(holiday);
+    async addHoliday(@Body() holiday: HolidayCreate) {
+
+        return await new Promise((res, rej) => {
+            setTimeout(() => {
+                if (holiday.name.toLowerCase() === 'sweetest day') {
+                    rej(new BadRequestException('Made up Holiday!'));
+                }
+                res(this.service.add(holiday));
+            }, 4000);
+        });
     }
 }
