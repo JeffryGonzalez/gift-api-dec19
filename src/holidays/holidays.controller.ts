@@ -22,8 +22,9 @@ export class HolidaysController {
             setTimeout(() => {
                 if (holiday.name.toLowerCase() === 'sweetest day') {
                     rej(new BadRequestException('Made up Holiday!'));
+                } else {
+                    res(this.service.add(holiday));
                 }
-                res(this.service.add(holiday));
             }, 4000);
         });
     }
